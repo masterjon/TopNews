@@ -1,0 +1,6 @@
+framework module Pods_Platzi_ExcerciseTests {
+  umbrella header "Pods-Platzi ExcerciseTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
