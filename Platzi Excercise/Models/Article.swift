@@ -41,7 +41,7 @@ struct Article: Decodable{
                 completion(image)
             }
     }
-    func htmlDescription()->NSAttributedString{
+    func htmlContent()->NSAttributedString{
         return htmlString(self.content ?? "")
     }
 }

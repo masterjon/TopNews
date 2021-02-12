@@ -16,31 +16,39 @@ class ArticleDetailViewController: UIViewController {
     @IBOutlet weak var sourceLabel: UILabel!
     @IBOutlet weak var publishedAtLabel: UILabel!
     @IBOutlet weak var relatedCollectionView: UICollectionView!
-    var relatedArticles =  [Article]()
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    var articleListViewModel : ArticleListViewModel!
     
     let networkManager = NetworkManager()
-    var article: Article!
+    var articleVM: ArticleViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        titleLabel.text = article.title
-        publishedAtLabel.text = article.getFriendlyDateString()
-        contentTextView.attributedText = article.htmlDescription()
-        article.getImage{ image in self.imageView.image = image}
-        sourceLabel.text = "Source: \(article.source.name)"
-        moreAboutLabel.text = "More news from \(article.source.name)"
+        titleLabel.text = articleVM.title
+        publishedAtLabel.text =  articleVM.published
+        contentTextView.attributedText =  articleVM.content
+        
+        articleVM.getImage{ image in self.imageView.image = image}
+        sourceLabel.text = "Source: \(articleVM.source.name)"
+        moreAboutLabel.text = "More news from \(articleVM.source.name)"
         fetchRelatedArticles()
         
     }
     
     func fetchRelatedArticles(){
-        guard let articleId = article.source.id else {return}
+        guard let articleId = articleVM.source.id else {return}
         networkManager.getNews(url: APPURL.newsBySourceURL(sourceId: articleId)) { articles in
+            self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
             
-            self.relatedArticles = articles.filter({ return $0.title != self.article.title})
-            self.relatedCollectionView.reloadData()
+            let filteredArticles = articles.filter({ return $0.title != self.articleVM.title})
+            
+            self.articleListViewModel = ArticleListViewModel(articles:filteredArticles)
+            
+            DispatchQueue.main.async{
+                self.relatedCollectionView.reloadData()
+            }
         }
     }
     
@@ -51,20 +59,24 @@ class ArticleDetailViewController: UIViewController {
             let indexPath = relatedCollectionView.indexPathsForSelectedItems?.first,
             let detailViewController = segue.destination as? ArticleDetailViewController
             else {return}
-        detailViewController.article = relatedArticles[indexPath.item]
+        detailViewController.articleVM = articleListViewModel.itemAtIndex(indexPath.item)
     }
 
 }
 
 extension ArticleDetailViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return relatedArticles.count
+        if self.articleListViewModel != nil{
+            return articleListViewModel.numberOfItemsInSection()
+        }
+        return 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ArticleCollectionViewCell
-        let article = relatedArticles[indexPath.row]
-        cell.setupCell(article)
+        let articleViewModel = self.articleListViewModel.itemAtIndex(indexPath.row)
+        cell.setupCell(articleViewModel)
         return cell
     }
     

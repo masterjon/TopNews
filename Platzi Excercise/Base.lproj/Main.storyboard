@@ -140,6 +140,10 @@
                                                     <outlet property="delegate" destination="VVP-hQ-bWq" id="XMd-wd-tJP"/>
                                                 </connections>
                                             </collectionView>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="djV-b8-avI">
+                                                <rect key="frame" x="193.5" y="522.5" width="20" height="20"/>
+                                                <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -150,6 +154,8 @@
                                             <constraint firstItem="e13-ad-UIf" firstAttribute="top" secondItem="n6D-Qi-3vg" secondAttribute="top" id="M7r-U1-N1z"/>
                                             <constraint firstAttribute="trailing" secondItem="IzK-cd-R3Q" secondAttribute="trailing" constant="8" id="PAY-ME-UXP"/>
                                             <constraint firstItem="ndL-Sk-o9i" firstAttribute="top" secondItem="K7E-ph-olM" secondAttribute="bottom" constant="20" id="TVC-ID-MFQ"/>
+                                            <constraint firstItem="djV-b8-avI" firstAttribute="centerY" secondItem="IzK-cd-R3Q" secondAttribute="centerY" id="aqZ-PI-ejV"/>
+                                            <constraint firstItem="djV-b8-avI" firstAttribute="centerX" secondItem="IzK-cd-R3Q" secondAttribute="centerX" id="jNl-Xr-JIo"/>
                                             <constraint firstItem="K7E-ph-olM" firstAttribute="top" secondItem="e13-ad-UIf" secondAttribute="bottom" constant="15" id="kqn-h0-MN3"/>
                                             <constraint firstItem="IzK-cd-R3Q" firstAttribute="leading" secondItem="n6D-Qi-3vg" secondAttribute="leading" constant="8" id="mXm-NK-BiG"/>
                                             <constraint firstAttribute="bottom" secondItem="IzK-cd-R3Q" secondAttribute="bottom" id="ovr-5K-iSf"/>
@@ -183,6 +189,7 @@
                     <connections>
                         <outlet property="contentTextView" destination="iuD-rF-JhC" id="YwB-e0-CcQ"/>
                         <outlet property="imageView" destination="e13-ad-UIf" id="VKh-Fl-guJ"/>
+                        <outlet property="loadingIndicator" destination="djV-b8-avI" id="Sia-LS-ho8"/>
                         <outlet property="moreAboutLabel" destination="ndL-Sk-o9i" id="bt9-0H-RGV"/>
                         <outlet property="publishedAtLabel" destination="svc-bO-OJj" id="YYg-vc-8X3"/>
                         <outlet property="relatedCollectionView" destination="IzK-cd-R3Q" id="a9D-sz-eGL"/>
@@ -291,19 +298,26 @@
                                     <outlet property="delegate" destination="06V-Ss-b1g" id="KCi-79-eMC"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="nJz-ex-zEb">
+                                <rect key="frame" x="188.5" y="456.5" width="37" height="37"/>
+                                <color key="color" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ddP-wA-BGM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ddP-wA-BGM" firstAttribute="bottom" secondItem="QrV-z5-XLy" secondAttribute="bottom" id="Sya-KY-XHT"/>
+                            <constraint firstItem="nJz-ex-zEb" firstAttribute="centerY" secondItem="ddP-wA-BGM" secondAttribute="centerY" id="fSo-rR-XPR"/>
                             <constraint firstItem="QrV-z5-XLy" firstAttribute="leading" secondItem="ddP-wA-BGM" secondAttribute="leading" id="iKq-XU-YWL"/>
                             <constraint firstItem="ddP-wA-BGM" firstAttribute="trailing" secondItem="QrV-z5-XLy" secondAttribute="trailing" id="igM-PW-NL2"/>
+                            <constraint firstItem="nJz-ex-zEb" firstAttribute="centerX" secondItem="ddP-wA-BGM" secondAttribute="centerX" id="pyb-9U-3KI"/>
                             <constraint firstItem="QrV-z5-XLy" firstAttribute="top" secondItem="ddP-wA-BGM" secondAttribute="top" id="wHJ-2T-POk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Top News" id="Qlg-Vl-eOG"/>
                     <connections>
                         <outlet property="collectionView" destination="QrV-z5-XLy" id="4mK-wg-Gej"/>
+                        <outlet property="loadingIndicator" destination="nJz-ex-zEb" id="fE7-3Z-UC2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nHm-S2-OtQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

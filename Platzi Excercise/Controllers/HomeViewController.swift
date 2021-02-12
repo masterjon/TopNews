@@ -9,17 +9,25 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var collectionView: UICollectionView!
     let networkManager = NetworkManager()
-    var news =  [Article]()
+    var articleListViewModel : ArticleListViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupVC()
+    }
+    func setupVC(){
         networkManager.getNews(url: APPURL.topHeadlines) { articles in
+            self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
-            self.news = articles
-            self.collectionView.reloadData()
+            self.articleListViewModel = ArticleListViewModel(articles:articles)
+            print("article")
+            DispatchQueue.main.async{
+                self.collectionView.reloadData()
+            }
+            
         }
-        // Do any additional setup after loading the view.
     }
     
     
@@ -29,7 +37,7 @@ class HomeViewController: UIViewController {
             let indexPath = collectionView.indexPathsForSelectedItems?.first,
             let detailViewController = segue.destination as? ArticleDetailViewController
             else {return}
-        detailViewController.article = news[indexPath.item]
+        detailViewController.articleVM = articleListViewModel.itemAtIndex(indexPath.item)
     }
     
 }
@@ -37,13 +45,17 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return news.count
+        if self.articleListViewModel != nil{
+            return self.articleListViewModel.numberOfItemsInSection()
+        }
+        return 0
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ArticleCollectionViewCell
-        let article = news[indexPath.row]
-        cell.setupCell(article)
+        let articleViewModel = self.articleListViewModel.itemAtIndex(indexPath.row)
+        cell.setupCell(articleViewModel)
         return cell
     }
     

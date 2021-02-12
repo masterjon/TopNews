@@ -22,18 +22,13 @@ class ArticleCollectionViewCell: UICollectionViewCell {
         clipsToBounds = true
     }
     
-    func setupCell(_ article:Article){
-        self.titleLabel.text = article.title
+    func setupCell(_ articleVM:ArticleViewModel){
+        self.titleLabel.text = articleVM.title
         self.titleLabel.textColor = .brown
-        self.descriptionLabel.text = article.description
+        self.descriptionLabel.text = articleVM.description
         self.imgView.image = UIImage(named: "placeholder")
-        article.getImage{ image in
+        articleVM.getImage{ image in
             self.imgView.image = image
         }
-        //self.titleLabel.textColor = UIColor.init(hexString: "#xxx")
-        
-//        Alamofire.request("https://images.mktw.net/im-298100/social").responseData { response in
-//            self.logoImageView.image = UIImage(data: response.data!)
-//        }
     }
 }
