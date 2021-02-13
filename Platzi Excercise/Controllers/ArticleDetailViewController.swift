@@ -147,7 +147,7 @@ class ArticleDetailViewController: UIViewController {
         contentView.addSubview(collectionView)
         collectionView.anchor(top: moreNewsLabel.bottomAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: contentView.rightAnchor)
         collectionView.backgroundColor = .white
-        collectionView.setHeight(250)
+        collectionView.setHeight(270)
         collectionView.dataSource = self
         collectionView.delegate = self
         

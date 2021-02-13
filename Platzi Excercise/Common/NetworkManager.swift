@@ -11,7 +11,6 @@ import SwiftyJSON
 
 struct NetworkManager {
     func getNews(url:String, completion:@escaping([Article]?)->()){
-        print(url)
         AF.request(url).validate().responseJSON { response in
             switch response.result{
             case .success(let value):
@@ -20,7 +19,7 @@ struct NetworkManager {
                 let articles : [Article] = try! JSONDecoder().decode([Article].self, from:adata )
                 completion(articles)
             case .failure(_):
-                print("failure")
+                completion(nil)
             }
             
         }

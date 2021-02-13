@@ -10,6 +10,8 @@
 		50BEAA7AABB6B2508F0EF980 /* Pods_Platzi_ExcerciseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20098C193A3A47F4842D2F06 /* Pods_Platzi_ExcerciseTests.framework */; };
 		939E8A0144D1A535422BA232 /* Pods_Platzi_Excercise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 741638E8CFDAC7EE16365E56 /* Pods_Platzi_Excercise.framework */; };
 		C5AF35132E194B386A0F8A56 /* Pods_Platzi_Excercise_Platzi_ExcerciseUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 927C0309D1A6514791CD1A39 /* Pods_Platzi_Excercise_Platzi_ExcerciseUITests.framework */; };
+		FC0DE8A125D7C9500053416A /* ArticleListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0DE8A025D7C9500053416A /* ArticleListViewModelTest.swift */; };
+		FC0DE8A625D7CCDD0053416A /* ApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0DE8A525D7CCDD0053416A /* ApiTest.swift */; };
 		FC3C586625D597C9003712B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3C586525D597C9003712B2 /* AppDelegate.swift */; };
 		FC3C586825D597C9003712B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3C586725D597C9003712B2 /* SceneDelegate.swift */; };
 		FC3C586F25D597CD003712B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC3C586E25D597CD003712B2 /* Assets.xcassets */; };
@@ -27,6 +29,7 @@
 		FC415CB725D733F00011C6A1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC415CB625D733EF0011C6A1 /* Extensions.swift */; };
 		FCE4928F25D7A64D0053FC6B /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE4928E25D7A64D0053FC6B /* LoadingIndicator.swift */; };
 		FCE492A625D7ABC70053FC6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCE492A525D7ABC70053FC6B /* Main.storyboard */; };
+		FCE492B025D7C17D0053FC6B /* ArticleViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE492AF25D7C17D0053FC6B /* ArticleViewModelTest.swift */; };
 		FCEBC92D25D5DDC7004AD6B1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEBC92C25D5DDC7004AD6B1 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +60,8 @@
 		BD7C8652C838FACE2C7C27FC /* Pods-Platzi Excercise-Platzi ExcerciseUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Platzi Excercise-Platzi ExcerciseUITests.release.xcconfig"; path = "Target Support Files/Pods-Platzi Excercise-Platzi ExcerciseUITests/Pods-Platzi Excercise-Platzi ExcerciseUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E0A6A7D9423E1724E2752157 /* Pods-Platzi ExcerciseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Platzi ExcerciseTests.debug.xcconfig"; path = "Target Support Files/Pods-Platzi ExcerciseTests/Pods-Platzi ExcerciseTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F0845F7326A1D2A6E5206F51 /* Pods-Platzi ExcerciseTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Platzi ExcerciseTests.release.xcconfig"; path = "Target Support Files/Pods-Platzi ExcerciseTests/Pods-Platzi ExcerciseTests.release.xcconfig"; sourceTree = "<group>"; };
+		FC0DE8A025D7C9500053416A /* ArticleListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleListViewModelTest.swift; sourceTree = "<group>"; };
+		FC0DE8A525D7CCDD0053416A /* ApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiTest.swift; sourceTree = "<group>"; };
 		FC3C586225D597C9003712B2 /* Platzi Excercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Platzi Excercise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC3C586525D597C9003712B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC3C586725D597C9003712B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 		FC415CB625D733EF0011C6A1 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		FCE4928E25D7A64D0053FC6B /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		FCE492A525D7ABC70053FC6B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		FCE492AF25D7C17D0053FC6B /* ArticleViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewModelTest.swift; sourceTree = "<group>"; };
 		FCEBC92C25D5DDC7004AD6B1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -179,6 +185,9 @@
 			children = (
 				FC3C587C25D597CE003712B2 /* Platzi_ExcerciseTests.swift */,
 				FC3C587E25D597CE003712B2 /* Info.plist */,
+				FCE492AF25D7C17D0053FC6B /* ArticleViewModelTest.swift */,
+				FC0DE8A025D7C9500053416A /* ArticleListViewModelTest.swift */,
+				FC0DE8A525D7CCDD0053416A /* ApiTest.swift */,
 			);
 			path = "Platzi ExcerciseTests";
 			sourceTree = "<group>";
@@ -496,7 +505,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC0DE8A125D7C9500053416A /* ArticleListViewModelTest.swift in Sources */,
 				FC3C587D25D597CE003712B2 /* Platzi_ExcerciseTests.swift in Sources */,
+				FC0DE8A625D7CCDD0053416A /* ApiTest.swift in Sources */,
+				FCE492B025D7C17D0053FC6B /* ArticleViewModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
