@@ -25,7 +25,6 @@ struct Article: Decodable{
     let source:Source
     
     
-    
     func getFriendlyDateString()->String{
         let dateFormatter = setupDateFormater(format: DateTimeFormats.apiDateTime)
         if let date = dateFormatter.date(from: self.publishedAt){

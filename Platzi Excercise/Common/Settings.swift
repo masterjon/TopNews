@@ -12,8 +12,9 @@ import Foundation
     
 enum SETTINGS{
     static let locale = "en_US"
-    static let apiKey = "ed3028f58e2e42c4a499759f9a368a39"
-    static let sources = ["axios","bbc-news","bloomberg","google-news","techcrunch"]
+    // static let apiKey = "ed3028f58e2e42c4a499759f9a368a39" // trothled
+    static let apiKey = "e871269601364628bbcfad32aa68bb31"
+    static let sources = ["axios","bbc-news","bloomberg","techcrunch"]
 }
 
 enum DateTimeFormats{

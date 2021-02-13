@@ -8,7 +8,7 @@
 import Foundation
 func htmlString(_ string:String) -> NSAttributedString {
     var attrStr = NSAttributedString()
-    let htmlDesc = "<style>body{font-family:open-sans,sans-serif;font-size:16px;line-height:24px;color:#8A8A8F;text-align: justify;}</style>\(string)"
+    let htmlDesc = "<style>body{font-family:open-sans,sans-serif;font-size:16px;line-height:24px;color:#333;text-align: justify;}</style>\(string)"
     do {
         attrStr = try NSAttributedString(
             data: htmlDesc.data(using: String.Encoding.unicode, allowLossyConversion: true)!,

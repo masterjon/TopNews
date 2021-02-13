@@ -11,6 +11,7 @@ import SwiftyJSON
 
 struct NetworkManager {
     func getNews(url:String, completion:@escaping([Article]?)->()){
+        print(url)
         AF.request(url).validate().responseJSON { response in
             switch response.result{
             case .success(let value):

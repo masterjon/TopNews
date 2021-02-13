@@ -36,8 +36,11 @@ struct ArticleViewModel {
     var published: String{
         return self.article.getFriendlyDateString()
     }
-    var source : Source{
-        return self.article.source
+    var sourceId : String?{
+        return self.article.source.id
+    }
+    var sourceName : String{
+        return self.article.source.name 
     }
     
     

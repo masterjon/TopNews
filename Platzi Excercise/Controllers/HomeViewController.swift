@@ -7,22 +7,44 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+private let reuseIdentifier = "Cell"
 
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    let networkManager = NetworkManager()
+class HomeViewController: UICollectionViewController {
+
+    //MARK: - Properties
     var articleListViewModel : ArticleListViewModel!
+    let networkManager = NetworkManager()
+    let loadingIndicator = LoadingIndicator(style: .large)
+    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVC()
+        setupUI()
+        fetchData()
+        
     }
-    func setupVC(){
+    
+    //MARK: - UI
+    
+    func setupUI(){
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        title = "Top News"
+        collectionView.register(ArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = ColorPalette.backgroundColor
+        view.addSubview(collectionView)
+        view.addSubview(loadingIndicator)
+        loadingIndicator.center = self.view.center
+        
+    }
+    
+    //MARK: - API
+    
+    func fetchData(){
         networkManager.getNews(url: APPURL.topHeadlines) { articles in
             self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
             self.articleListViewModel = ArticleListViewModel(articles:articles)
-            print("article")
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
             }
@@ -30,21 +52,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            let indexPath = collectionView.indexPathsForSelectedItems?.first,
-            let detailViewController = segue.destination as? ArticleDetailViewController
-            else {return}
-        detailViewController.articleVM = articleListViewModel.itemAtIndex(indexPath.item)
-    }
-    
 }
 
+// MARK: - UICollectionViewDataSource
 
-extension HomeViewController: UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension HomeViewController{
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if self.articleListViewModel != nil{
             return self.articleListViewModel.numberOfItemsInSection()
         }
@@ -52,24 +65,38 @@ extension HomeViewController: UICollectionViewDataSource{
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ArticleCollectionViewCell
-        let articleViewModel = self.articleListViewModel.itemAtIndex(indexPath.row)
-        cell.setupCell(articleViewModel)
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ArticleCollectionViewCell
+        cell.articleVM = self.articleListViewModel.itemAtIndex(indexPath.row)
         return cell
     }
     
 }
 
+// MARK: - UICollectionViewDelegate
 
-//extension HomeViewController:UICollectionViewDelegateFlowLayout{
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
-//    {
-//        print("flow")
-//        let cellWith = (self.view.frame.size.width - 15 * 2) / 2
-//
-//        let width = cellWith //some width
-//        let height = cellWith * 0.7 //ratio
-//        return CGSize(width: width, height: height)
-//    }
-//}
+extension HomeViewController{
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailViewController =  ArticleDetailViewController()
+        detailViewController.articleVM = articleListViewModel.itemAtIndex(indexPath.item)
+        self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let cellWith = (self.view.frame.size.width - 15 * 2)
+
+        let width = cellWith
+        let height = cellWith * 0.8
+        return CGSize(width: width, height: height)
+    }
+}
