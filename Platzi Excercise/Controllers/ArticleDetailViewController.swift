@@ -13,13 +13,24 @@ class ArticleDetailViewController: UIViewController {
     // MARK: - Properties
     var articleListViewModel : ArticleListViewModel!
     var articleVM: ArticleViewModel!
-    var collectionView:UICollectionView!
+    
 
     let networkManager = NetworkManager()
     let loadingIndicator = LoadingIndicator(style: .large)
     let scrollView = UIScrollView()
     let contentView = UIView()
     
+    private lazy var collectionView: UICollectionView = {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: contentView.frame, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(ArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
     
     //TODO: - Some API images crash the app
     private lazy var  imageView: UIImageView = {
@@ -139,17 +150,9 @@ class ArticleDetailViewController: UIViewController {
     
     
     func setupCollectionView(){
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.scrollDirection = .horizontal
-        collectionView =  UICollectionView(frame: contentView.frame, collectionViewLayout: layout)
-        collectionView.register(ArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         contentView.addSubview(collectionView)
         collectionView.anchor(top: moreNewsLabel.bottomAnchor, left: contentView.leftAnchor, bottom: contentView.bottomAnchor, right: contentView.rightAnchor)
-        collectionView.backgroundColor = .white
         collectionView.setHeight(270)
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
     }
     
@@ -161,8 +164,7 @@ class ArticleDetailViewController: UIViewController {
         networkManager.getNews(url: APPURL.newsBySourceURL(sourceId: articleId)) { articles in
             self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
-            let filteredArticles = articles.filter({ return $0.title != self.articleVM.title})
-            self.articleListViewModel = ArticleListViewModel(articles:filteredArticles)
+            self.articleListViewModel = ArticleListViewModel(articles:articles).filteredArticlesExluding(title: self.articleVM.title)
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
             }

@@ -18,6 +18,10 @@ struct ArticleListViewModel {
         let article = articles[index]
         return ArticleViewModel(article)
     }
+    func filteredArticlesExluding(title:String) -> ArticleListViewModel{
+        let filteredArticles = articles.filter({ return $0.title != title})
+        return ArticleListViewModel(articles: filteredArticles)
+    }
 }
 struct ArticleViewModel {
     private let article: Article

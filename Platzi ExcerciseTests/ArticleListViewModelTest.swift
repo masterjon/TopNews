@@ -33,5 +33,13 @@ class ArticleListViewModelTest: XCTestCase {
         XCTAssertEqual(article.title, "New\(index)")
         
     }
+    
+    func test_filtered_articles_exluding_title(){
+        let title = "New0"
+        let articleListVM = self.articleListVM.filteredArticlesExluding(title: title)
+        for article in articleListVM.articles{
+            XCTAssertNotEqual(article.title, title)
+        }
+    }
 
 }

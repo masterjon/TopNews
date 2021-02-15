@@ -15,6 +15,13 @@ class HomeViewController: UICollectionViewController {
     var articleListViewModel : ArticleListViewModel!
     let networkManager = NetworkManager()
     let loadingIndicator = LoadingIndicator(style: .large)
+    private lazy var refreshControl : UIRefreshControl = {
+        let control = UIRefreshControl()
+        control.attributedTitle = NSAttributedString(string: "Loading...")
+        control.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return control
+    }()
+    
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
@@ -33,9 +40,15 @@ class HomeViewController: UICollectionViewController {
         collectionView.register(ArticleCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.backgroundColor = ColorPalette.backgroundColor
         view.addSubview(collectionView)
+        collectionView.addSubview(refreshControl)
         view.addSubview(loadingIndicator)
         loadingIndicator.center = self.view.center
         
+        
+    }
+    
+    @objc func refresh(){
+        fetchData()
     }
     
     //MARK: - API
@@ -47,10 +60,12 @@ class HomeViewController: UICollectionViewController {
             self.articleListViewModel = ArticleListViewModel(articles:articles)
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
+                self.refreshControl.endRefreshing()
             }
             
         }
     }
+    
     
 }
 
