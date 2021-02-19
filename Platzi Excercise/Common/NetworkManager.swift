@@ -6,28 +6,39 @@
 //
 
 import Foundation
-import Alamofire
 import SwiftyJSON
 
 struct NetworkManager {
     func getNews(url:String, completion:@escaping([Article]?)->()){
-        AF.request(url).validate().responseJSON { response in
-            switch response.result{
-            case .success(let value):
-                let newsJSON = JSON(value)
+        URLSession.shared.dataTask(with: URL(string: url)!){
+            (data, urlResponse, error) in
+            if let error = error{
+                print(error.localizedDescription)
+                completion(nil)
+            }
+            else if let data = data {
+                let newsJSON = JSON(data)
                 guard let adata = try? newsJSON["articles"].rawData() else {return}
                 let articles : [Article] = try! JSONDecoder().decode([Article].self, from:adata )
                 completion(articles)
-            case .failure(_):
-                completion(nil)
+                
             }
-            
-        }
+        }.resume()
     }
     func getImage(url:String,completion:@escaping(UIImage?)->()){
-        AF.request(url).responseData { response in
-            guard let data = response.data else { completion(nil); return}
-            completion(UIImage(data: data))
-        }
+        
+        URLSession.shared.dataTask(with: URL(string: url)!){
+            (data, urlResponse, error) in
+            if let error = error{
+                print(error.localizedDescription)
+                completion(nil)
+            }
+            else if let data = data {
+                DispatchQueue.main.async {
+                    completion(UIImage(data: data))
+                }
+                
+            }
+        }.resume()
     }
 }

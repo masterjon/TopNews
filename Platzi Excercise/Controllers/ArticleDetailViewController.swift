@@ -162,15 +162,14 @@ class ArticleDetailViewController: UIViewController {
     func fetchRelatedArticles(){
         guard let articleId = articleVM.sourceId else {return}
         networkManager.getNews(url: APPURL.newsBySourceURL(sourceId: articleId)) { articles in
-            self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
             self.articleListViewModel = ArticleListViewModel(articles:articles).filteredArticlesExluding(title: self.articleVM.title)
             DispatchQueue.main.async{
+                self.loadingIndicator.stopAnimating()
                 self.collectionView.reloadData()
             }
         }
     }
-    
 
 }
 

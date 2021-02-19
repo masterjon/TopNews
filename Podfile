@@ -6,7 +6,6 @@ target 'Platzi Excercise' do
   use_frameworks!
 
   # Pods for Platzi Excercise
-  pod 'Alamofire', '~> 5.2'
   pod 'SwiftyJSON', '~> 4.0'
 
   target 'Platzi ExcerciseTests' do

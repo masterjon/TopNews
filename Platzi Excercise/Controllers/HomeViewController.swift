@@ -55,10 +55,10 @@ class HomeViewController: UICollectionViewController {
     
     func fetchData(){
         networkManager.getNews(url: APPURL.topHeadlines) { articles in
-            self.loadingIndicator.stopAnimating()
             guard let articles = articles else{return}
             self.articleListViewModel = ArticleListViewModel(articles:articles)
             DispatchQueue.main.async{
+                self.loadingIndicator.stopAnimating()
                 self.collectionView.reloadData()
                 self.refreshControl.endRefreshing()
             }
